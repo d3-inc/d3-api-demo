@@ -1,6 +1,6 @@
-import type { Cart, ConnectWallet, WidgetSettings } from "./types.js";
+import type { Cart, ConnectWallet, AppSettings } from "./types.js";
 
-export const widgetSettings: WidgetSettings = {
+export const appSettings: AppSettings = {
   isCartViewOpen: false,
   isOrderSuccess: false,
   isWalletModalOpen: false,

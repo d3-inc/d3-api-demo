@@ -7,9 +7,9 @@ import { useStore } from '../state/store/index.js';
 
 export function useEvmConnectWallet() {
   const setConnectWallet = useStore(useCallback((state) => state.setConnectWallet, []));
-  const setWidgetSettings = useStore(useCallback((state) => state.setWidgetSettings, []));
+  const setAppSettings = useStore(useCallback((state) => state.setAppSettings, []));
   const connectWallet = useStore(useShallow((state) => state.connectWallet));
-  const widgetSettings = useStore(useShallow((state) => state.widgetSettings));
+  const appSettings = useStore(useShallow((state) => state.appSettings));
   const { address } = useAccount();
   const wagmiConfig = useConfig();
   useAccountEffect({
@@ -38,8 +38,8 @@ export function useEvmConnectWallet() {
       return;
     }
     if (isReconnected || !connectWallet?.isConnectInitiated) {
-      if (widgetSettings?.isWalletModalOpen) {
-        setWidgetSettings({ isWalletModalOpen: false });
+      if (appSettings?.isWalletModalOpen) {
+        setAppSettings({ isWalletModalOpen: false });
       }
       return;
     }
@@ -53,7 +53,7 @@ export function useEvmConnectWallet() {
       isConnectInProgress: false,
       evmWallet: address,
     });
-    setWidgetSettings({
+    setAppSettings({
       isWalletModalOpen: false,
     });
   };

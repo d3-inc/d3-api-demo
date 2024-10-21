@@ -12,12 +12,12 @@ type SearchQueryParams = {
   skip: number;
   limit: number;
 };
-const widgetTlds = import.meta.env.VITE_TLDS;
+const appTlds = import.meta.env.VITE_TLDS;
 
 
 export const useSearch = () => {
   const cart = useStore(useShallow((state) => state.cart));
-  const setWidgetSettings = useStore(useCallback((state) => state.setWidgetSettings, []));
+  const setAppSettings = useStore(useCallback((state) => state.setAppSettings, []));
   const [searchQueryParams, setSearchQueryParams] = useState<SearchQueryParams>({
     sld: '',
     tld: '',
@@ -68,7 +68,7 @@ export const useSearch = () => {
     method: 'POST',
     requestBody: { slds: [searchQueryParams.sld], tlds: searchQueryParams.tld?.split(',') },
     queryParameters: {
-      // We should only fetch recommendations when the flag is used in the widget config
+      // We should only fetch recommendations when the tld flag is setup
       enabled: Boolean(searchQueryParams?.sld),
       retry: 0,
       refetchOnWindowFocus: false,
@@ -77,7 +77,7 @@ export const useSearch = () => {
   });
 
   const handleSearchSubmit = (sld: string) => {
-    const tld = getPartnerTld(widgetTlds);
+    const tld = getPartnerTld(appTlds);
 
     setSearchQueryParams((old) => ({
       ...old,
@@ -88,11 +88,11 @@ export const useSearch = () => {
 
   const handlePaymentMethods = useCallback(async () => {
     if (cart?.items?.length) {
-      setWidgetSettings({
+      setAppSettings({
         isCartViewOpen: true,
       });
     }
-  }, [setWidgetSettings, cart?.items]);
+  }, [setAppSettings, cart?.items]);
 
   return {
     searchQueryParams,

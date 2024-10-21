@@ -51,8 +51,8 @@ export function CartItems({
   paymentOptionsError,
   isSwitchNetworkInProgress,
 }: CartItemsProps) {
-  const setWidgetSettings = useStore(
-    useCallback((state) => state.setWidgetSettings, [])
+  const setAppSettings = useStore(
+    useCallback((state) => state.setAppSettings, [])
   );
   const cart = useStore(useShallow((state) => state.cart));
 
@@ -65,7 +65,7 @@ export function CartItems({
         </p>
         <Button
           variant="secondary"
-          onClick={() => setWidgetSettings({ isCartViewOpen: false })}
+          onClick={() => setAppSettings({ isCartViewOpen: false })}
         >
           Back to Search
         </Button>
@@ -80,7 +80,7 @@ export function CartItems({
         </p>
         <Button
           variant="secondary"
-          onClick={() => setWidgetSettings({ isCartViewOpen: false })}
+          onClick={() => setAppSettings({ isCartViewOpen: false })}
         >
           Back to Search
         </Button>

@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 .d3 {
-  position: fixed;
-  bottom: 12px;
-  right: 20px;
+  padding: 40px 20px;
   @layer base {
     :root {
       --background: 0 0% 100%;
@@ -75,6 +73,7 @@
 
   @layer base {
     body {
+      font-family: 'Roboto', sans-serif;
       @apply bg-background text-foreground;
       font-feature-settings:
         'rlig' 1,

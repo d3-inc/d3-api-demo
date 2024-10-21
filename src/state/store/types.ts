@@ -1,6 +1,6 @@
 import type { SearchResult } from "../../types/api";
 
-export type WidgetSettings = {
+export type AppSettings = {
   isCartViewOpen?: boolean;
   isOrderSuccess?: false;
   isWalletModalOpen?: false;

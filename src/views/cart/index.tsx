@@ -9,12 +9,12 @@ import { useCheckout } from "./hooks/useCheckout.js";
 import { PurchaseSuccess } from "./purchaseSuccess.js";
 
 export const CartView = () => {
-  const setWidgetSettings = useStore(
-    useCallback((state) => state.setWidgetSettings, [])
+  const setAppSettings = useStore(
+    useCallback((state) => state.setAppSettings, [])
   );
   const cart = useStore(useShallow((state) => state.cart));
   const handleSearchView = () => {
-    setWidgetSettings({ isCartViewOpen: false });
+    setAppSettings({ isCartViewOpen: false });
   };
   const {
     selectedPaymentMethod,

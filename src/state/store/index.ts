@@ -2,29 +2,29 @@ import { create } from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
 import { isProductionEnv } from "../../config/appConfig.js";
-import { connectWallet, initialCart, widgetSettings } from "./defaultState.js";
-import type { Cart, ConnectWallet, WidgetSettings } from "./types.js";
+import { connectWallet, initialCart, appSettings } from "./defaultState.js";
+import type { Cart, ConnectWallet, AppSettings } from "./types.js";
 
 const createStore = combine(
   {
-    widgetSettings: { ...widgetSettings },
+    appSettings: { ...appSettings },
     cart: { ...initialCart },
     connectWallet: { ...connectWallet },
   },
   (set) => ({
-    setWidgetSettings: (newState: WidgetSettings) =>
+    setAppSettings: (newState: AppSettings) =>
       set((prevState) => ({
-        widgetSettings: {
-          ...prevState.widgetSettings,
+        appSettings: {
+          ...prevState.appSettings,
           isCartViewOpen:
             newState.isCartViewOpen ??
-            prevState?.widgetSettings?.isCartViewOpen,
+            prevState?.appSettings?.isCartViewOpen,
           isOrderSuccess:
             newState.isOrderSuccess ??
-            prevState?.widgetSettings?.isOrderSuccess,
+            prevState?.appSettings?.isOrderSuccess,
           isWalletModalOpen:
             newState.isWalletModalOpen ??
-            prevState?.widgetSettings?.isWalletModalOpen,
+            prevState?.appSettings?.isWalletModalOpen,
         },
       })),
     setCart: (newState: Cart) =>

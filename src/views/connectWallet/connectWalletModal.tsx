@@ -15,7 +15,7 @@ type ConnectWalletProps = {
 };
 
 export function ConnectWalletModal({ isButtonDisabled }: ConnectWalletProps) {
-  const widgetSettings = useStore(useShallow((state) => state.widgetSettings));
+  const appSettings = useStore(useShallow((state) => state.appSettings));
   const connectWallet = useStore(useShallow((state) => state.connectWallet));
   return (
     <>
@@ -26,7 +26,7 @@ export function ConnectWalletModal({ isButtonDisabled }: ConnectWalletProps) {
               aria-label="connect wallet"
               disabled={
                 isButtonDisabled ||
-                widgetSettings.isWalletModalOpen ||
+                appSettings.isWalletModalOpen ||
                 connectWallet.isConnectInProgress
               }
             >

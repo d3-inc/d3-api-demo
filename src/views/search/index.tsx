@@ -29,9 +29,7 @@ export const Search = () => {
         initialSearch={searchQueryParams.sld}
       />
       <div id="search-results" className={cn('flex flex-col flex-grow gap-3 overflow-auto pb-2')}>
-        <ScrollArea
-          className={clsx('h-9/12 max-h-[375px]')}
-        >
+        <ScrollArea className={clsx('h-9/12 max-h-[375px]')}>
           <SearchResults
             searchResults={searchResults}
             isLoading={isLoading}

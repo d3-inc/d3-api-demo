@@ -95,7 +95,7 @@ For a **successful request**, below response will be returned from the payment o
 
 ```
 export type PaymentOption = {
-  tokenAddress: string; // will be empty for native token
+  tokenAddress: string;
   contractAddress: string;
   symbol: string;
   icon: string;
@@ -115,11 +115,11 @@ After integrating the above response in the [code](https://github.com/d3-inc/d3-
 
 In case of no payment options configured for the tld, the `options` will be empty.
 
-### start order/checkout
+### order/checkout
 
 This endpoint `/v1/partner/order` is used to start the order or checkout. You can review a live sample of order endpoint integration [here](https://github.com/d3-inc/d3-api-demo/blob/main/src/views/cart/hooks/useCheckout.ts#L125). For the order initiation, you need to provide below data in the payload and the api will return a
 
-If you want to check the live endpoint, you can do so in [swagger](https://api-public.d3.app/swagger#/Partner%20API/PartnerController_getPaymentOptions)
+If you want to check the live endpoint, you can do so in [swagger](https://api-public.d3.app/swagger#/Partner%20API/PartnerController_createPartnerOrder)
 
 below is the payload type
 

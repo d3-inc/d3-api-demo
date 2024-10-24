@@ -9,14 +9,12 @@ export const cacheKeys = {
   fetchSearchResults: 'FETCH_SEARCH_RESULTS',
   fetchPaymentMethods: 'FETCH_PAYMENT_METHODS',
   startCheckoutOrder: 'START_CHECKOUT_ORDER',
-  fetchRecommendations: 'FETCH_RECOMMENDATIONS_RESULTS',
 };
 
 export const apiEndpoints = {
   search: '/v1/partner/search',
   paymentOptions: '/v1/partner/payment/options',
   startCheckoutOrder: '/v1/partner/order',
-  recommendations: '/v1/partner/recommendations',
 };
 
 export const PAGE_SIZE = 12;

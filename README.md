@@ -1,6 +1,6 @@
 # Project
 
-This project shows a complete flow of name token purchases using [d3 api integrations](https://api-public.d3.app/swagger#/Partner%20API/PartnerController_search). This demo is using [reactjs](https://react.dev/), but the api integration mostly remain the same irrespective of the framework/library.
+This project showcases a complete example of name token purchases using [d3 api integrations](https://api-public.d3.app/swagger#/). This demo is using [reactjs](https://react.dev/), but the api integration part mostly remains the same irrespective of the framework/library.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ to setup & run the project, you can follow these steps
 
 ## Built with
 
-This section includes libraries/frameworks used to bootstrap this d3-api-demo.
+This section includes libraries/frameworks used to bootstrap this project.
 
 - yarn
 - vite

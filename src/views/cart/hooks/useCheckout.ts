@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { BaseError, TransactionReceipt } from 'viem';
+import type { BaseError } from 'viem';
 import { useShallow } from 'zustand/react/shallow';
 import { apiEndpoints, cacheKeys } from '../../../config/constants.js';
 import { useCryptoTransaction } from '../../../hooks/useCryptoTransaction.js';
@@ -39,6 +39,26 @@ export const useCheckout = () => {
     return [...new Set(tlds)];
   }, [cart?.items]);
 
+  const paymentOptionsParams = useMemo(() => {
+    return `${apiEndpoints.paymentOptions}?tld=${tlds.toString()}`;
+  }, [tlds]);
+
+  const {
+    data: paymentOptions,
+    isLoading: isPaymentOptionsLoading,
+    isError: isPaymentOptionsError,
+    error: paymentOptionsError,
+  } = useFetchRequest<PaymentOptionRequestResponse>({
+    queryKey: [cacheKeys.fetchPaymentMethods, { tlds }],
+    endpoint: paymentOptionsParams,
+    queryParameters: {
+      enabled: Boolean(tlds?.length),
+      retry: 0,
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  });
+
   const { mutationRes: startCheckoutOrder } = usePostRequest<
     CheckoutOrderRequestResponse,
     ApiErrorResponse,
@@ -48,42 +68,21 @@ export const useCheckout = () => {
     endpoint: apiEndpoints.startCheckoutOrder,
   });
 
-  const {
-    data: paymentOptions,
-    isLoading: isPaymentOptionsLoading,
-    isError: isPaymentOptionsError,
-    error: paymentOptionsError,
-  } = useFetchRequest<PaymentOptionRequestResponse>({
-    queryKey: [cacheKeys.fetchSearchResults, { tlds }],
-    endpoint: apiEndpoints.paymentOptions,
-    method: 'POST',
-    requestBody: { tlds },
-    queryParameters: {
-      enabled: Boolean(tlds?.length),
-      retry: 0,
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5, // 5 minutes
-    },
-  });
-
   useEffect(() => {
     if (paymentOptions?.options?.length && !selectedPaymentMethod) {
       setSelectedPaymentMethod(paymentOptions?.options[0]);
     }
   }, [selectedPaymentMethod, paymentOptions]);
 
-  const handleOnCheckoutSuccess = useCallback(
-    async (transactionReceipt?: TransactionReceipt) => {
-      setCheckoutState({
-        isError: false,
-        feedback: `You've purchased the name tokens successfully`,
-        isTransactionInProgress: false,
-        isOrderSuccess: true,
-      });
-      resetCart();
-    },
-    [resetCart],
-  );
+  const handleOnCheckoutSuccess = useCallback(async () => {
+    setCheckoutState({
+      isError: false,
+      feedback: `You've purchased the name tokens successfully`,
+      isTransactionInProgress: false,
+      isOrderSuccess: true,
+    });
+    resetCart();
+  }, [resetCart]);
 
   const handleOnCheckoutError = useCallback(async (error: string | BaseError) => {
     const message = typeof error === 'string' ? error : error?.message;
@@ -94,7 +93,6 @@ export const useCheckout = () => {
       isOrderSuccess: false,
     });
   }, []);
-
 
   const handleCryptoCheckoutCallback = useCallback(
     async (response: CheckoutOrderRequestResponse) => {
@@ -138,8 +136,8 @@ export const useCheckout = () => {
       return;
     }
 
-    const isWalletConnected =  Boolean(connectWallet.evmWallet)
-    const walletAddress = connectWallet.evmWallet
+    const isWalletConnected = Boolean(connectWallet.evmWallet);
+    const walletAddress = connectWallet.evmWallet;
 
     if (!isWalletConnected) {
       setCheckoutState({
@@ -151,8 +149,8 @@ export const useCheckout = () => {
       return;
     }
 
-      const isCorrectChain = await ensureCorrectEVMChain(Number(selectedPaymentMethod.chainId));
-      if (!isCorrectChain) return;
+    const isCorrectChain = await ensureCorrectEVMChain(Number(selectedPaymentMethod.chainId));
+    if (!isCorrectChain) return;
     if (!startCheckoutOrder.isPending && walletAddress) {
       // Reset the checkout state to initial state
       setCheckoutState({
@@ -177,11 +175,10 @@ export const useCheckout = () => {
       };
       startCheckoutOrder.mutate(payload, {
         onSuccess: async (response) => {
-            handleCryptoCheckoutCallback(response);
-            return;
+          handleCryptoCheckoutCallback(response);
+          return;
         },
         onError: (error) => {
-           
           console.log({ error });
           setCheckoutState((old) => ({
             ...old,
@@ -207,12 +204,7 @@ export const useCheckout = () => {
       handleStartCheckout();
       setIsNetworkUpdated(false);
     }
-  }, [
-    isNetworkUpdated,
-    handleStartCheckout,
-    evmWalletAddress,
-    walletClient,
-  ]);
+  }, [isNetworkUpdated, handleStartCheckout, evmWalletAddress, walletClient]);
 
   return {
     selectedPaymentMethod,

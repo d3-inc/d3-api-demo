@@ -14,7 +14,6 @@ type SearchQueryParams = {
 };
 const appTlds = import.meta.env.VITE_TLDS;
 
-
 export const useSearch = () => {
   const cart = useStore(useShallow((state) => state.cart));
   const setAppSettings = useStore(useCallback((state) => state.setAppSettings, []));
@@ -54,28 +53,6 @@ export const useSearch = () => {
     },
   });
 
-  const {
-    data: recommendationsResults,
-    isLoading: isRecommendationLoading,
-    isError: isRecommendationError,
-    error: recommendationRequestError,
-  } = useFetchRequest<SearchResultRequestResponse['pageItems']>({
-    queryKey: [
-      cacheKeys.fetchRecommendations,
-      { sld: searchQueryParams.sld, tld: searchQueryParams.tld },
-    ],
-    endpoint: apiEndpoints.recommendations,
-    method: 'POST',
-    requestBody: { slds: [searchQueryParams.sld], tlds: searchQueryParams.tld?.split(',') },
-    queryParameters: {
-      // We should only fetch recommendations when the tld flag is setup
-      enabled: Boolean(searchQueryParams?.sld),
-      retry: 0,
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5, // 5 minutes
-    },
-  });
-
   const handleSearchSubmit = (sld: string) => {
     const tld = getPartnerTld(appTlds);
 
@@ -102,9 +79,5 @@ export const useSearch = () => {
     error,
     handleSearchSubmit,
     handlePaymentMethods,
-    recommendationsResults,
-    isRecommendationError,
-    isRecommendationLoading,
-    recommendationRequestError,
   };
 };

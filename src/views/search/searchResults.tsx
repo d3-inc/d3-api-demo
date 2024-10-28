@@ -51,8 +51,8 @@ export function SearchResults({
 
   return (
     <>
-      <h2 className={cn('text-lg font-bold text-left')}>Search Results</h2>
-      <div id="search-results-container" className={cn('flex flex-col flex-grow gap-y-3 pb-2')}>
+      <h2 className={cn('text-lg font-bold text-left mb-3')}>Search Results</h2>
+      <div id="search-results-container" className={cn('flex flex-col flex-grow gap-y-4 pb-2')}>
         {searchResults.pageItems.map((searchResult) => {
           const isItemInCart = getIsItemInCart(searchResult);
           return (

@@ -17,14 +17,14 @@ export const Search = () => {
     handlePaymentMethods,
   } = useSearch();
   return (
-    <div className="px-2 flex flex-col gap-y-2 flex-grow">
+    <div className="flex flex-col gap-y-2 flex-grow">
       <SearchBar
         isSearchDisabled={isLoading}
         handleSearchSubmit={handleSearchSubmit}
         initialSearch={searchQueryParams.sld}
       />
       <div id="search-results" className={cn('flex flex-col flex-grow gap-3 overflow-auto pb-2')}>
-        <ScrollArea className={clsx('h-9/12 max-h-[375px]')}>
+        <ScrollArea className={clsx('h-9/12 max-h-[505px] px-2')}>
           <SearchResults
             searchResults={searchResults}
             isLoading={isLoading}

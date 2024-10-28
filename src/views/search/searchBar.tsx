@@ -31,7 +31,7 @@ export function SearchBar({
         handleSearchAction();
       }}
     >
-      <div className="flex gap-2 my-2">
+      <div className="flex gap-2 my-2 px-2">
         <div className="flex-grow">
           <Input
             value={searchValue}

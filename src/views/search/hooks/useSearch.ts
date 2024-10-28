@@ -12,7 +12,7 @@ type SearchQueryParams = {
   skip: number;
   limit: number;
 };
-const appTlds = import.meta.env.VITE_TLDS;
+const appTlds = import.meta.env.VITE_TLDS || 'core,shib';
 
 export const useSearch = () => {
   const cart = useStore(useShallow((state) => state.cart));

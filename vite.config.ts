@@ -15,5 +15,5 @@ export default defineConfig({
       'providers/*': path.resolve(__dirname, './src/providers'),
     },
   },
-  base: '/',
+  base: '/d3-api-demo/',
 });

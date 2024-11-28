@@ -36,7 +36,7 @@ export function useSearchBar({
       return;
     }
     if (searchValue?.length) {
-      const trimmedSld = searchValue.replace(/\s+/g, '');
+      const trimmedSld = searchValue.replace(/\s+/g, '').split(/[.*]/)[0];
       setErrorMessage(null);
       handleSubmit(trimmedSld);
       setSearchValue(trimmedSld);

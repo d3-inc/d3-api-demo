@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { ScrollArea } from '../../components/ui/scrollArea.js';
 import { cn } from '../../utils/twMerge.js';
 import { CheckoutButton } from './checkoutButton.js';
-import { useSearch } from './hooks/useSearch.js';
+import { useSearch } from './hooks/useSearchResults.js';
 import { SearchBar } from './searchBar.js';
 import { SearchResults } from './searchResults.js';
 
